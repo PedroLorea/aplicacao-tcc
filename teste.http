@@ -1,3 +1,3 @@
 ### GET todos os fretes
-GET http://127.0.0.1:8000/api/fretes/
+GET http://127.0.0.1:8000/fretes/
 Accept: application/json
