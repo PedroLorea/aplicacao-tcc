@@ -1,3 +1,18 @@
 ### GET todos os fretes
 GET http://127.0.0.1:8000/fretes/
 Accept: application/json
+
+### GET frete por id
+GET http://127.0.0.1:8000/fretes/detalhes/1
+Accept: application/json
+
+### CREATE frete
+POST http://127.0.0.1:8000/fretes/adicionar/
+Content-type: application/json
+
+{
+    "produto": "carga pesada"
+}
+
+### DELETE frete
+DELETE  http://127.0.0.1:8000/fretes/excluir/2

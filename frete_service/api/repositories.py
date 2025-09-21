@@ -7,13 +7,14 @@ class FreteRepository:
         return Frete.objects.all()
     
     def get_by_uuid(self, uuid: str):
-        return Frete.objects.filter(uuid=uuid).first() # Retorna None se não existir
+        return Frete.objects.filter(id=uuid).first() # Retorna None se não existir
     
     def create(self, frete_dto: FreteDTO):
 
-        frete = Frete(**frete_dto.dict())
-        frete.save()
-        return frete
+        data = frete_dto.model_dump(exclude={'id'})
+        frete, created = Frete.objects.update_or_create(id=frete_dto.id, defaults=data)
+
+        return frete, created
 
         # defaults = {
         #     "produto": frete_dto.produto
