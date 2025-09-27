@@ -1,8 +1,9 @@
 from django.db import models
 
 from api.constants import FRETES_ESTADOS, RESERVATORIOS_MATERIAIS, TIPOS_PRODUTOS
+from api.base.base_model import BaseModel
 
-class Localizacao(models.Model):
+class Localizacao(BaseModel):
     cep = models.CharField(max_length=9)
     cidade = models.CharField(max_length=100)
     estado = models.CharField(max_length=2)
@@ -11,7 +12,7 @@ class Localizacao(models.Model):
     complemento = models.CharField(max_length=100, blank=True, null=True)
 
 
-class Frete(models.Model):
+class Frete(BaseModel):
     tipo_produto = models.CharField(max_length=50, choices=TIPOS_PRODUTOS)
     quantidade = models.IntegerField()
     localizacao_coleta = models.ForeignKey(Localizacao, on_delete=models.CASCADE, related_name="localizacao_coleta")
@@ -20,12 +21,12 @@ class Frete(models.Model):
     data_entrega = models.DateTimeField()
 
 
-class Motorista(models.Model):
+class Motorista(BaseModel):
     nome = models.CharField(max_length=100)
     documento = models.CharField(max_length=100)
 
 
-class Caminhao(models.Model):
+class Caminhao(BaseModel):
     placa = models.CharField(max_length=10)
     marca = models.CharField(max_length=100)
     modelo = models.CharField(max_length=100)
@@ -37,7 +38,7 @@ class Caminhao(models.Model):
     material_reservatorio = models.CharField(max_length=100, choices=RESERVATORIOS_MATERIAIS)
 
 
-class Viagem(models.Model):
+class Viagem(BaseModel):
     motorista = models.ForeignKey(Motorista, on_delete=models.CASCADE, related_name="motorista_operacao_frete")
     caminhao = models.ForeignKey(Caminhao, on_delete=models.CASCADE, related_name="caminhao_operacao_frete")
     frete = models.ForeignKey(Frete, on_delete=models.CASCADE, related_name="frete_operacao_frete")
